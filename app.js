@@ -1,34 +1,46 @@
-const express = require('express')
+import express from "express";
+import socketio from "socket.io";
+import http from "http";
+import cors from "cors";
+import bodyParser from "body-parser";
+import { success, failure } from "./src/libs/response";
+import socketHandler from "./src/sockets";
+
 const app = express()
+const server = http.createServer(app);
+
 const port = process.env.port || 3000;
 
+const io = socketio(server, {
+  transports: ["websocket", "polling"],
+});
+io.on("connection", socketHandler(io));
+
+/* allow any origin */
+app.options("*", cors());
+app.use(cors());
+
+/* parse body as JSON */
+app.use(bodyParser.json());
+
 app.get('/', (req, res) => {
-  res.send('Muitxooo louuuucoooooo!')
+  res.send('Server online!');
 })
 
-app.get('/adonias', (req, res) => {
-  res.send({
-    id: 1,
-    nome: "S01",
-    descrição: "Sensor Temperatura",
-    dados: [
-      {
-        data: "01/06/2021 12:00",
-        valor: "12 graus"
-      },
-      {
-        data: "02/06/2021 12:00",
-        valor: "8 graus"
-      },
-      {
-        data: "03/06/2021 12:00",
-        valor: "20 graus"
-      },
-    ]
+
+server.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
+})
+
+/* catch all other routes */
+app.use(() => {
+  throw new Error("This route doesn't exist.");
+});
+
+/* handle all errors */
+app.use((err, req, res, next) => {
+  /* eslint no-unused-vars: "off" */
+  return failure(res, {
+    error: err.message,
   });
-})
-
-
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
+});
