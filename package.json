@@ -2,9 +2,9 @@
   "name": "test-deploy-aws",
   "version": "1.0.2",
   "description": "Test ci cd",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
