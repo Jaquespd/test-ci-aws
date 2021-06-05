@@ -17,8 +17,8 @@ const port = process.env.port || 3000;
 // io.on("connection", socketHandler(io));
 
 /* allow any origin */
-app.options("*", cors());
-app.use(cors());
+// app.options("*", cors());
+// app.use(cors());
 
 /* parse body as JSON */
 app.use(bodyParser.json());
