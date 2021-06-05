@@ -7,14 +7,14 @@ import { success, failure } from "./src/libs/response";
 import socketHandler from "./src/sockets";
 
 const app = express()
-const server = http.createServer(app);
+// const server = http.createServer(app);
 
 const port = process.env.port || 3000;
 
-const io = socketio(server, {
-  transports: ["websocket", "polling"],
-});
-io.on("connection", socketHandler(io));
+// const io = socketio(server, {
+//   transports: ["websocket", "polling"],
+// });
+// io.on("connection", socketHandler(io));
 
 /* allow any origin */
 app.options("*", cors());
