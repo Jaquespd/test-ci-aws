@@ -12,15 +12,17 @@ const server = http.createServer(app);
 const port = process.env.port || 3000;
 
 const io = socketio(server, {
+  cors: {
+    origin: "*",
+  },
   transports: ["websocket", "polling"],
 });
+io.on("connection", socketHandler(io));
 
 /* allow any origin */
 app.options("*", cors());
 app.use(cors());
 
-// io.origins(["*"]);
-io.on("connection", socketHandler(io));
 
 /* parse body as JSON */
 app.use(bodyParser.json());

@@ -1,6 +1,7 @@
 import join from "./join";
+import sendData from "./sendData";
 
 export default (io) => (socket) => {
-  console.log("socket index");
   socket.on("join", join(io, socket));
+  socket.on("sendData", sendData(io, socket));
 };

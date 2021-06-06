@@ -1,3 +1,4 @@
 export default (io, socket) => () => {
-  console.log("Join");
+  console.log("newUser", socket.id);
+  io.emit("newUser", socket.id);
 };
