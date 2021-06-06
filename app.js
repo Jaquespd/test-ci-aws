@@ -14,12 +14,13 @@ const port = process.env.port || 3000;
 const io = socketio(server, {
   transports: ["websocket", "polling"],
 });
-io.origins(["*"]);
-io.on("connection", socketHandler(io));
 
 /* allow any origin */
 app.options("*", cors());
 app.use(cors());
+
+// io.origins(["*"]);
+io.on("connection", socketHandler(io));
 
 /* parse body as JSON */
 app.use(bodyParser.json());
