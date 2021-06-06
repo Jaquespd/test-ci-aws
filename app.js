@@ -14,6 +14,7 @@ const port = process.env.port || 3000;
 const io = socketio(server, {
   transports: ["websocket", "polling"],
 });
+io.origins(["*"]);
 io.on("connection", socketHandler(io));
 
 /* allow any origin */
