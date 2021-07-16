@@ -25,9 +25,11 @@ app.use(cors());
 
 
 /* parse body as JSON */
-app.use(bodyParser.json());
+app.use(express.json());
 
 app.get('/', (req, res) => {
+  console.log("client request");
+  console.log(req);
   res.send('Server online!');
 })
 
