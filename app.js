@@ -2,20 +2,20 @@ import express from "express";
 import socketio from "socket.io";
 import http from "http";
 import cors from "cors";
-import bodyParser from "body-parser";
 import { success, failure } from "./src/libs/response";
 import socketHandler from "./src/sockets";
 
 const app = express()
 const server = http.createServer(app);
 
-const port = process.env.port || 3000;
+const port = process.env.port || 3001;
 
 const io = socketio(server, {
   cors: {
     origin: "*",
   },
   transports: ["websocket", "polling"],
+  allowEIO3: true
 });
 io.on("connection", socketHandler(io));
 
@@ -23,16 +23,14 @@ io.on("connection", socketHandler(io));
 app.options("*", cors());
 app.use(cors());
 
-
 /* parse body as JSON */
 app.use(express.json());
 
 app.get('/', (req, res) => {
   console.log("client request");
-  console.log(req);
+  // console.log(req);
   res.send('Server online!');
 })
-
 
 server.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
