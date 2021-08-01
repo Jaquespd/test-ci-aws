@@ -1,9 +1,9 @@
 import join from "./join";
-import commandReceived from "./commandReceived";
-import sendSensorData from "./sendSensorData";
+import sendDeviceCommand from "./sendDeviceCommand";
+import sendDeviceData from "./sendDeviceData";
 
 export default (io) => (socket) => {
   socket.on("join", join(io, socket));
-  socket.on("commandReceived", commandReceived(io, socket));
-  socket.on("sendSensorData", sendSensorData(io, socket));
+  socket.on("sendDeviceCommand", sendDeviceCommand(io, socket));
+  socket.on("sendDeviceData", sendDeviceData(io, socket));
 };

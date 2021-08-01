@@ -1,4 +1,4 @@
-export default (io, socket) => (data) => {
-  console.log("Novo Dispositivo Conectado", data);
-  io.emit("newUser", {socket: socket.id, ...data});
+export default (io, socket) => ({ clientId, clientType, devices }) => {
+  console.log("New device connected", { socket: socket.id, clientId, clientType, devices });
+  io.emit("newUser", { socket: socket.id, clientId, clientType, devices });
 };
